@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<body>
+    {% if category %}
+        <h1>{{ category.name }}</h1>
+        {% if pages %}
+            {% for page in pages %}
+                <ul>
+                    <li><a href={{page.url}}>{{page.title}}</a> </li>
+
+                </ul>
+
+    {% endfor %}
+        {% endif %}
+    {% else %}
+
+    {% endif %}
+
+
+
+</body>
+</head>
+</html>
