@@ -1,26 +1,37 @@
-<!DOCTYPE html>
+{% extends 'rango/base.html' %}
+
 {% load staticfiles %}
-<html>
 
-    <head>
-        <title>Rango</title>
-    </head>
+{% block title %}Index{% endblock %}
 
-    <body>
-        <h1>Rango says...</h1>
-        hello world! <strong>{{ boldmessage }}</strong><br />
-        {% if categories %}
-            {% for category in categories %}
-                <ul>
-                    <li><a href="category/{{category.slug}}">{{category.name}}</a></li>
-                </ul>
+        {% block body_block %}
+{% if user.is_authenticated %}
+    <div class="page-header">
 
-            {% endfor %}
+                <h1>Rango says... hello {{ user.username }}!</h1>
+            {% else %}
+                <h1>Rango says... hello world!</h1>
+            {% endif %}
+</div>
 
 
-        {% endif%}
-        <a href="/rango/about/">About</a><br />
-        <img src="{% static "images/4234759459011936106.jpg" %}" alt="Picture of Rango" /> <!-- New line -->
-    </body>
+<div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Category</h1>
+                </div>
+             </div>
 
-</html>
+                {% if categories %}
+                    <ul class="list-group">
+                        {% for category in categories %}
+                                <li class="list-group-item"> <a href="{% url 'category'  category.slug %}" >{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <strong>There are no categories present.</strong>
+                {% endif %}
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="{% url 'add_category' %}">Add a New Category</a></li>
+                    </ul>
+
+{% endblock %}

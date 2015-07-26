@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Rango - {% block title %}How to Tango with Python!{% endblock %}</title>
+    </head>
+
+    <body>
+        <a href="/rango/">Home</a><br/>
+        {% if user.is_authenticated %}
+            Hello {{user.username}}<br/>
+            <a href="{% url 'auth_password_change' %}">changepassword</a> 
+        {% endif%}
+        <div>
+            {% block body_block %}{% endblock %}
+
+        </div>
+
+        <hr />
+
+        <div>
+            <ul>
+             {% if user.is_authenticated %}
+                <li><a href="{% url 'restricted' %}">Restricted Page</a></li>
+                <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+
+            {% else %}
+                <li><a href="{% url 'registration_register' %}">Register</a></li>
+                    {% endif %}
+                <li><a href="{% url 'auth_login' %}"">Login</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+
+            </ul>
+        </div>
+    </body>
+</html>
